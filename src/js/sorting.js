@@ -15,7 +15,11 @@ export default class Sorting {
 
 	loadFilms(list) {
 		const films = JSON.parse(list);
-		this.films = films;
+		const sortFilms = films.sort((a,b) => {
+			return a.id - b.id; 
+		})
+		this.films = sortFilms;
+		this.activeSort = ['id', 'up'];
 	}
 
 	startSorting() {
@@ -27,30 +31,26 @@ export default class Sorting {
 	changeItemForSort() {
 		let oldSort = this.activeSort;
 
-		if (oldSort) {
-			if (oldSort[1] === "down") {
-				const oldItemSort = oldSort[0];
-				const indexOldItemSort = this.namePoles.indexOf(oldItemSort);
-				const countPoles = this.namePoles.length;
-				let newIndex = indexOldItemSort + 1;
+		if (oldSort[1] === "down") {
+			const oldItemSort = oldSort[0];
+			const indexOldItemSort = this.namePoles.indexOf(oldItemSort);
+			const countPoles = this.namePoles.length;
+			let newIndex = indexOldItemSort + 1;
 
-				if (newIndex >= countPoles) {
-					newIndex = 0;
-				}
-
-				const newItemSort = this.namePoles[newIndex];
-
-				this.activeSort = [newItemSort, "up"];
-			} else {
-				this.activeSort[1] = "down";
+			if (newIndex >= countPoles) {
+				newIndex = 0;
 			}
+
+			const newItemSort = this.namePoles[newIndex];
+
+			this.activeSort = [newItemSort, "up"];
 		} else {
-			this.activeSort = [this.namePoles[0], "up"];
+			this.activeSort[1] = "down";
 		}
 
-		this.changeActiveTitle();
+	this.changeActiveTitle();
 
-		this.activeSort[0] === "title" ? this.sortByName() : this.sortByNumber();
+	this.activeSort[0] === "title" ? this.sortByName() : this.sortByNumber();
 	}
 
 	sortByName() {
@@ -138,6 +138,7 @@ export default class Sorting {
 		table.append(rowTitles);
 		this.tableFilms = table;
 		this.container.append(table);
+
 	}
 
 	renderListFilms() {
@@ -167,7 +168,7 @@ export default class Sorting {
 	}
 
 	changeActiveTitle() {
-		const oldSortDirection = this.activeSort[1] === "up" ? "down" : "up";
+		const oldSortDirection = this.activeSort[1] === "down" ? "up" : "down";
 		const activeTitle = this.container.querySelector(`
 			.sorting-${oldSortDirection}
 		`);
