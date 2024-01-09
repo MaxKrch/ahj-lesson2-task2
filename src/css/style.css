@@ -1,0 +1,51 @@
+.main-container {
+	padding: 50px;
+	margin: auto;
+}
+
+.table {
+	margin: auto;
+	font-size: 20px;
+}
+
+.table-title {
+	font-weight: 700;
+	background-color: #f0f0f0;
+}
+
+.table-title-cell {
+	text-align: center;
+	padding: 10px 25px;
+	position: relative;
+}
+
+.sorting-up::after {
+	content: '';
+	background-image: url('../img/arrow.png');
+	background-size: cover;
+	height: 15px;
+	width: 15px;
+	position: absolute;
+	right: 5px;
+	top: 15px;
+	transform: rotate(180deg)
+}
+
+.sorting-down::after {
+	content: '';
+	background-image: url('../img/arrow.png');
+	background-size: cover;
+	height: 15px;
+	width: 15px;
+	position: absolute;
+	right: 5px;
+	top: 15px;
+}
+
+.table-film {
+	background-color: #F1F5EE;
+}
+
+.table-film-cell {
+	padding: 5px 15px;
+}
