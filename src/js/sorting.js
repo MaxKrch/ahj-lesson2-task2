@@ -15,11 +15,11 @@ export default class Sorting {
 
 	loadFilms(list) {
 		const films = JSON.parse(list);
-		const sortFilms = films.sort((a,b) => {
-			return a.id - b.id; 
-		})
+		const sortFilms = films.sort((a, b) => {
+			return a.id - b.id;
+		});
 		this.films = sortFilms;
-		this.activeSort = ['id', 'up'];
+		this.activeSort = ["id", "up"];
 	}
 
 	startSorting() {
@@ -48,9 +48,13 @@ export default class Sorting {
 			this.activeSort[1] = "down";
 		}
 
-	this.changeActiveTitle();
+		this.changeActiveTitle();
 
-	this.activeSort[0] === "title" ? this.sortByName() : this.sortByNumber();
+		if (this.activeSort[0] === "title") {
+			this.sortByName();
+		} else {
+			this.sortByNumber();
+		} 
 	}
 
 	sortByName() {
@@ -85,19 +89,22 @@ export default class Sorting {
 		if (this.activeSort[1] === "down") {
 			newList = newList.reverse();
 		}
-
+		
+		const tableFilm = this.container.querySelectorAll('.table-film');
 		let i = 0;
 		for (let film of this.films) {
+
+			
 			if (+film.id != +newList[i].id) {
 				const newFilm = this.renderFilm(newList[i]);
-				const oldFilm = this.container.querySelector(`[data-id='${film.id}']`);
-
+				const oldFilm = tableFilm[i];
 				oldFilm.replaceWith(newFilm);
 			}
 			i += 1;
 		}
 
 		this.films = newList;
+		this.renderTableFilms = this.container.querySelector('.table');
 	}
 
 	extractionData() {
@@ -130,7 +137,12 @@ export default class Sorting {
 
 		let title = "";
 		for (let item of this.namePoles) {
-			title += `<th class="table-title-cell ${item}">${item}</th>`;
+			let classes = `table-title-cell ${item}`
+			
+			if(item === "id") {
+				classes += ' sorting-up'
+			}
+			title += `<th class="${classes}">${item}</th>`;
 		}
 
 		rowTitles.innerHTML = title;
@@ -138,7 +150,6 @@ export default class Sorting {
 		table.append(rowTitles);
 		this.tableFilms = table;
 		this.container.append(table);
-
 	}
 
 	renderListFilms() {
