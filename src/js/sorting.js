@@ -54,7 +54,7 @@ export default class Sorting {
 			this.sortByName();
 		} else {
 			this.sortByNumber();
-		} 
+		}
 	}
 
 	sortByName() {
@@ -89,12 +89,10 @@ export default class Sorting {
 		if (this.activeSort[1] === "down") {
 			newList = newList.reverse();
 		}
-		
-		const tableFilm = this.container.querySelectorAll('.table-film');
+
+		const tableFilm = this.container.querySelectorAll(".table-film");
 		let i = 0;
 		for (let film of this.films) {
-
-			
 			if (+film.id != +newList[i].id) {
 				const newFilm = this.renderFilm(newList[i]);
 				const oldFilm = tableFilm[i];
@@ -104,7 +102,7 @@ export default class Sorting {
 		}
 
 		this.films = newList;
-		this.renderTableFilms = this.container.querySelector('.table');
+		this.renderTableFilms = this.container.querySelector(".table");
 	}
 
 	extractionData() {
@@ -137,10 +135,10 @@ export default class Sorting {
 
 		let title = "";
 		for (let item of this.namePoles) {
-			let classes = `table-title-cell ${item}`
-			
-			if(item === "id") {
-				classes += ' sorting-up'
+			let classes = `table-title-cell ${item}`;
+
+			if (item === "id") {
+				classes += " sorting-up";
 			}
 			title += `<th class="${classes}">${item}</th>`;
 		}
